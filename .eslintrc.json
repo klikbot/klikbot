@@ -37,6 +37,10 @@
 		"padded-blocks": [
 			"error",
 			"never"
+		],
+		"comma-dangle": [
+			"error",
+			"never"
 		]
     }
 }

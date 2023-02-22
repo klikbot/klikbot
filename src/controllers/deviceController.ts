@@ -1,4 +1,7 @@
 import { Request, Response } from "express";
+import { success } from "../constants/en/success";
+import { error } from "../constants/en/error";
+import { responseBuilder } from "../helpers/responseBuilder";
 import DeviceService from "../services/deviceService";
 
 class DeviceController {
@@ -6,20 +9,20 @@ class DeviceController {
 		const { device } = req.body;
 		try {
 			const newDevice = await DeviceService.create(device);
-			res.status(201).json(newDevice);
+			return responseBuilder(res, "success", success.deviceCreatedSuccessfully, newDevice);
 		} catch (err) {
 			console.error(err);
-			res.status(500).send("Internal Server Error");
+			return responseBuilder(res, "error", error.unableToCreateDevice);
 		}
 	}
 	
 	public async getAllDevices(req: Request, res: Response) {
 		try {
 			const devices = await DeviceService.getAll();
-			res.status(200).json(devices);
+			return responseBuilder(res, "success", success.devicesGotSuccessfully, devices);
 		} catch (err) {
 			console.error(err);
-			res.status(500).send("Internal Server Error");
+			return responseBuilder(res, "error", error.unableToGetDevices);
 		}
 	}
 
@@ -28,13 +31,12 @@ class DeviceController {
 		try {
 			const device = await DeviceService.getById(deviceId);
 			if (!device) {
-				res.status(404).send("Device not found");
-				return;
+				return responseBuilder(res, "error", error.deviceNotFound);
 			}
-			res.status(200).json(device);
+			return responseBuilder(res, "success", success.deviceGotSuccessfully, device);
 		} catch (err) {
 			console.error(err);
-			res.status(500).send("Internal Server Error");
+			return responseBuilder(res, "error", error.unableToGetDevices);
 		}
 	}
 
@@ -44,12 +46,12 @@ class DeviceController {
 		try {
 			const updatedDevice = await DeviceService.update(deviceId, device);
 			if (!updatedDevice) {
-				return res.status(404).send("Device not found");
+				return responseBuilder(res, "error", error.deviceNotFound);
 			}
-			res.status(200).json(updatedDevice);
+			return responseBuilder(res, "success", success.deviceUpdatedSuccessfully, updatedDevice);
 		} catch (err) {
 			console.error(err);
-			res.status(500).send("Internal Server Error");
+			return responseBuilder(res, "error", error.unableToUpdateDevice);
 		}
 	}
 
@@ -58,13 +60,12 @@ class DeviceController {
 		try {
 			const deletedDevice = await DeviceService.delete(deviceId);
 			if (!deletedDevice) {
-				res.status(404).send("Device not found");
-				return;
+				return responseBuilder(res, "error", error.deviceNotFound);
 			}
-			res.status(200).json(deletedDevice);
+			return responseBuilder(res, "success", success.deviceDeletedSuccessfully);
 		} catch (err) {
 			console.error(err);
-			res.status(500).send("Internal Server Error");
+			return responseBuilder(res, "error", error.unableToDeleteDevice);
 		}
 	}
 }

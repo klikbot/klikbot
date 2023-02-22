@@ -1,9 +1,9 @@
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
+import Database from "./database";
 import express, { Application } from "express";
 import deviceRoutes from "./routes/deviceRoutes";
-import Database from "./database";
 
 class App {
 	public app : Application;

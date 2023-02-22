@@ -1,9 +1,3 @@
-/*
- * This file is responsible for initializing 
- * the http server.
- */
-
-import app from "./app";
 import { Application } from "express";
 
 class HttpServer {
@@ -23,4 +17,4 @@ class HttpServer {
 	}
 }
 
-export default new HttpServer(app, Number(process.env.APP_PORT));
+export default HttpServer;

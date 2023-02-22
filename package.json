@@ -7,9 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "dev": "nodemon --exec ts-node ./src/httpServer.ts",
+    "dev": "nodemon --exec ts-node ./src/index.ts",
     "build": "tsc",
-    "start": "node dist/httpServer.js"
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",

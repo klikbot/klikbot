@@ -2,6 +2,17 @@ import { Request, Response } from "express";
 import DeviceService from "../services/deviceService";
 
 class DeviceController {
+	public async createDevice(req: Request, res: Response) {
+		const { device } = req.body;
+		try {
+			const newDevice = await DeviceService.create(device);
+			res.status(201).json(newDevice);
+		} catch (err) {
+			console.error(err);
+			res.status(500).send("Internal Server Error");
+		}
+	}
+	
 	public async getAllDevices(req: Request, res: Response) {
 		try {
 			const devices = await DeviceService.getAll();
@@ -27,11 +38,15 @@ class DeviceController {
 		}
 	}
 
-	public async createDevice(req: Request, res: Response) {
+	public async updateDevice(req: Request, res: Response) {
+		const deviceId = req.params.id;
 		const { device } = req.body;
 		try {
-			const newDevice = await DeviceService.create(device);
-			res.status(201).json(newDevice);
+			const updatedDevice = await DeviceService.update(deviceId, device);
+			if (!updatedDevice) {
+				return res.status(404).send("Device not found");
+			}
+			res.status(200).json(updatedDevice);
 		} catch (err) {
 			console.error(err);
 			res.status(500).send("Internal Server Error");

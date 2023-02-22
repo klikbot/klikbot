@@ -1,23 +1,23 @@
 import express from "express";
 import deviceController from "../controllers/deviceController";
 
-const { getAllDevices, getDeviceById, createDevice, deleteDevice } = deviceController;
+const { createDevice, getAllDevices, getDeviceById, updateDevice, deleteDevice } = deviceController;
 
 const router = express.Router();
 
-// GET /devices
-router.get("/", getAllDevices);
-
-// GET /devices/:id
-router.get("/:id", getDeviceById);
-
-// POST /devices
+// POST /api/devices
 router.post("/", createDevice);
 
-// PUT /devices/:id
-// router.put("/:id", );
+// GET /api/devices
+router.get("/", getAllDevices);
 
-// DELETE /devices/:id
+// GET /api/devices/:id
+router.get("/:id", getDeviceById);
+
+// PUT /api/devices/:id
+router.put("/:id", updateDevice);
+
+// DELETE /api/devices/:id
 router.delete("/:id", deleteDevice);
 
 export default router;

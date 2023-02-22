@@ -1,4 +1,4 @@
-import Device, {IDevice} from "../database/model/deviceModel";
+import Device, { IDevice } from "../database/schemas/deviceSchema";
 
 class DeviceService {
 	async create(device: IDevice): Promise<IDevice> {
@@ -8,20 +8,20 @@ class DeviceService {
 			throw new Error(`Failed to create device. Error: ${error}`);
 		}
 	}
+
+	async getAll(): Promise<IDevice[]> {
+		try {
+			return await Device.find();
+		} catch (error) {
+			throw new Error(`Failed to get devices. Error: ${error}`);
+		}
+	}
   
 	async getById(id: string): Promise<IDevice | null> {
 		try {
 			return await Device.findById(id);
 		} catch (error) {
 			throw new Error(`Failed to get device. Error: ${error}`);
-		}
-	}
-  
-	async getAll(): Promise<IDevice[]> {
-		try {
-			return await Device.find();
-		} catch (error) {
-			throw new Error(`Failed to get devices. Error: ${error}`);
 		}
 	}
   

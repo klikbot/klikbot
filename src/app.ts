@@ -9,6 +9,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import express, { Application } from "express";
+import deviceRoutes from "./routes/deviceRoutes";
 
 class App {
 	public app : Application;
@@ -17,6 +18,7 @@ class App {
 		this.app = express();
 		this.config();
 		this.connectDatabase();
+		this.routes();
 	}
 
 	private config() : void {
@@ -37,6 +39,10 @@ class App {
 				console.log("Unable to connect to the database:");
 				console.log(error);
 			});
+	}
+
+	private routes() : void {
+		this.app.use("/api/devices", deviceRoutes);
 	}
 }
 

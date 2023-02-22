@@ -12,7 +12,7 @@ class HttpServer {
 
 	private start() {
 		this.app.listen(this.port, () => {
-			console.log("Http server started on port " + this.port + ".");
+			console.log("Http server started successfully. Listening on port " + this.port + ".");
 		});
 	}
 }

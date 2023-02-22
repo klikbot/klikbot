@@ -8,7 +8,9 @@ interface IConstant {
 }
 
 export const responseBuilder = (res: Response, type : "error" | "success", constant : IConstant, data ?: unknown) => {
+
 	switch (type) {
+
 	case "error":
 		return res.status(constant.status).json({
 			status: constant.status,
@@ -28,5 +30,7 @@ export const responseBuilder = (res: Response, type : "error" | "success", const
 				data
 			}
 		});
+		
 	}
+
 };

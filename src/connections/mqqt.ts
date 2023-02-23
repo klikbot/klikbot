@@ -57,12 +57,12 @@ class Mqtt {
 
 				switch(topic) {
 
-				case "create":
+				case "proiot/create":
 
 					deviceService.create(messageAsJSON.device)
 						.then((device) => {
 						
-							console.log(device);
+							if(this.logs) console.log(device);
 
 						}).catch((error) => {
 
@@ -72,12 +72,12 @@ class Mqtt {
 
 					break;
 
-				case "update":
+				case "proiot/update":
 
 					deviceService.update(messageAsJSON.device._id, messageAsJSON.device)
 						.then((device) => {
 
-							console.log(device);
+							if(this.logs) console.log(device);
 						
 						})
 						.catch((error) => {
@@ -88,12 +88,12 @@ class Mqtt {
 
 					break;
 
-				case "delete":
+				case "proiot/delete":
 
 					deviceService.delete(messageAsJSON.device._id)
 						.then((device) => {
 							
-							console.log(device);
+							if(this.logs) console.log(device);
 						
 						})
 						.catch((error) => {

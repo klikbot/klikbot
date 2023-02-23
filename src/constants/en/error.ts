@@ -34,5 +34,11 @@ export const error = {
 		code: 1506,
 		title: "Internal server error.",
 		description: "Unable to delete device."
+	},
+	invalidDeviceId: {
+		status: 400,
+		code: 1507,
+		title: "Invalid device ID.",
+		description: "The given device ID is invalid."
 	}
 };

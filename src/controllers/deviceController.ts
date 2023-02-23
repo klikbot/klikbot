@@ -48,6 +48,8 @@ class DeviceController {
 
 		const deviceId = req.params.id;
 
+		if(deviceId.length !== 24) return responseBuilder(res, "error", error.invalidDeviceId);
+
 		try {
 
 			const device = await DeviceService.getById(deviceId);
@@ -73,6 +75,9 @@ class DeviceController {
 	public async updateDevice(req: Request, res: Response) {
 
 		const deviceId = req.params.id;
+
+		if(deviceId.length !== 24) return responseBuilder(res, "error", error.invalidDeviceId);
+
 		const { device } = req.body;
 
 		try {
@@ -100,6 +105,8 @@ class DeviceController {
 	public async deleteDevice(req: Request, res: Response) {
 
 		const deviceId = req.params.id;
+
+		if(deviceId.length !== 24) return responseBuilder(res, "error", error.invalidDeviceId);
 
 		try {
 

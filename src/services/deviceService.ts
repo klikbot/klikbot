@@ -51,7 +51,11 @@ class DeviceService {
 
 			const updatedDevice = await Device.findByIdAndUpdate(id, device, { new: true });
 
-			app.socket.sendToAll("Device updated: " + updatedDevice._id);
+			if(updatedDevice) {
+
+				app.socket.sendToAll("Device updated: " + updatedDevice._id);
+			
+			}
 
 			return updatedDevice;
 		
@@ -67,8 +71,7 @@ class DeviceService {
 
 		try {
 
-			await Device.findByIdAndDelete(id);
-			return true;
+			return await Device.findByIdAndDelete(id);
 		
 		} catch (error) {
 

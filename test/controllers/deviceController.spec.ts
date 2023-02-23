@@ -1,6 +1,5 @@
 import { app } from "../../src/app";
 import request from "supertest";
-import { socket } from "../../src/connections/socket";
 
 describe("DeviceController", () => {
 
@@ -17,6 +16,6 @@ describe("DeviceController", () => {
 afterAll(async () => {
 
 	app.database.connection.close();
-	socket.socketHttpServer.close();
+	app.socket.socketHttpServer.close();
 
 });

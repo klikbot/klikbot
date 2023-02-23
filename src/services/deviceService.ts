@@ -1,4 +1,4 @@
-import { socket } from "../connections/socket";
+import { app } from "../app";
 import Device, { IDevice } from "../database/schemas/deviceSchema";
 
 class DeviceService {
@@ -51,7 +51,7 @@ class DeviceService {
 
 			const updatedDevice = await Device.findByIdAndUpdate(id, device, { new: true });
 
-			socket.sendToAll("Device updated: " + updatedDevice._id);
+			app.socket.sendToAll("Device updated: " + updatedDevice._id);
 
 			return updatedDevice;
 		

@@ -11,4 +11,4 @@ const mqttBroker = process.env.MQTT_BROKER || "mqtt://localhost:1883";
 
 new Mqtt(mqttBroker, true);
 
-new Socket(3000);
+export const socket = new Socket(3000);

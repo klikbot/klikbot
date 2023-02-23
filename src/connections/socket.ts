@@ -1,11 +1,12 @@
 import http from "http";
-import { server as WebSocketServer } from "websocket";
+import { connection, server as WebSocketServer } from "websocket";
 import { v4 as uuidv4 } from "uuid";
 
 class Socket {
 
 	private socketHttpServer: http.Server;
 	private ws : WebSocketServer;
+	public connections : connection[] = [];
 
 	constructor(port : number) {
 
@@ -42,6 +43,10 @@ class Socket {
 			
 			const connection = request.accept();
 
+			this.connections.push(connection);
+
+			connection.sendUTF("Hello from socket server.");
+
 			const connectionId = this.setConnectionId();
 
 			console.log("\nNew socket connection accepted: " + connectionId + "\n");
@@ -50,17 +55,27 @@ class Socket {
 
 				if (message.type === "utf8") {
 
-					console.log("Message received from socket connection " + connectionId + ": " + message.utf8Data);
+					console.log("Message received from socket connection " + connectionId + ": ");
+					console.log(message.utf8Data + "\n");
+					
 					connection.sendUTF(message.utf8Data);
 				
 				}
 
-			
-			});
-			
+			});			
 		
 		});
 
+	}
+
+	public sendToAll(message : string) : void {
+		
+		this.connections.forEach((connection) => {
+
+			connection.sendUTF(message);
+		
+		});
+	
 	}
 	
 

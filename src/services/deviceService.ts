@@ -1,3 +1,4 @@
+import { socket } from "..";
 import Device, { IDevice } from "../database/schemas/deviceSchema";
 
 class DeviceService {
@@ -48,7 +49,11 @@ class DeviceService {
 
 		try {
 
-			return await Device.findByIdAndUpdate(id, device, { new: true });
+			const updatedDevice = await Device.findByIdAndUpdate(id, device, { new: true });
+
+			socket.sendToAll("Device updated: " + updatedDevice._id);
+
+			return updatedDevice;
 		
 		} catch (error) {
 

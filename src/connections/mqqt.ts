@@ -1,4 +1,5 @@
 import mqtt from "mqtt";
+import { socket } from "..";
 import deviceService from "../services/deviceService";
 
 class Mqtt {
@@ -29,7 +30,7 @@ class Mqtt {
 			this.client.subscribe("proiot/create");
 			this.client.subscribe("proiot/update");
 			this.client.subscribe("proiot/delete");
-			this.client.subscribe("proiot/message");
+			this.client.subscribe("proiot/infoMessage");
 
 		});
 
@@ -45,67 +46,72 @@ class Mqtt {
 
 			if(this.logs) {
 
-				console.log("\nNew message received from MQTT server.");
+				console.log("New message received from MQTT server.");
 				console.log("Topic: " + topic);
 				console.log("Message: " + messageAsString + "\n");
 			
 			}
 
-			if(topic !== "proiot/message") {
 				
-				const messageAsJSON = JSON.parse(messageAsString);
+			const messageAsJSON = JSON.parse(messageAsString);
 
-				switch(topic) {
+			switch(topic) {
 
-				case "proiot/create":
+			case "proiot/create":
 
-					deviceService.create(messageAsJSON.device)
-						.then((device) => {
+				deviceService.create(messageAsJSON.device)
+					.then((device) => {
 						
-							if(this.logs) console.log(device);
+						if(this.logs) console.log(device);
 
-						}).catch((error) => {
+					}).catch((error) => {
 
-							console.log(error); 
+						console.log(error); 
 
-						});
+					});
 
-					break;
+				break;
 
-				case "proiot/update":
+			case "proiot/update":
 
-					deviceService.update(messageAsJSON.device._id, messageAsJSON.device)
-						.then((device) => {
+				deviceService.update(messageAsJSON.device._id, messageAsJSON.device)
+					.then((device) => {
 
-							if(this.logs) console.log(device);
+						if(this.logs) console.log(device);
 						
-						})
-						.catch((error) => {
+					})
+					.catch((error) => {
 
-							console.log(error); 
+						console.log(error); 
 
-						});
+					});
 
-					break;
+				break;
 
-				case "proiot/delete":
+			case "proiot/delete":
 
-					deviceService.delete(messageAsJSON.device._id)
-						.then((device) => {
+				deviceService.delete(messageAsJSON.device._id)
+					.then((device) => {
 							
-							if(this.logs) console.log(device);
+						if(this.logs) console.log(device);
 						
-						})
-						.catch((error) => {
+					})
+					.catch((error) => {
 							
-							console.log(error); 
+						console.log(error); 
 
-						});
+					});
 
-				}
+				break;
+
+			case "proiot/infoMessage":
+
+				socket.sendToAll("New info message received from MQTT server to " + messageAsJSON.to + " device: " + messageAsJSON.data);
 			
+				break;
+
 			}
-			
+		
 		});
 	
 	}

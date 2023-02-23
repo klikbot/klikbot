@@ -8,4 +8,4 @@ new HttpServer(app, 3001);
 
 const mqttBroker = process.env.MQTT_BROKER || "mqtt://localhost:1883";
 
-new Mqtt(mqttBroker);
+new Mqtt(mqttBroker, true);

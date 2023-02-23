@@ -4,11 +4,13 @@ import dotenv from "dotenv";
 import Database from "./database";
 import express, { Application } from "express";
 import deviceRoutes from "./routes/deviceRoutes";
+import Socket from "./connections/socket";
 
 export default class App {
 
 	public app : Application;
 	public database : Database;
+	public socket : Socket;
 
 	constructor() {
 
@@ -25,6 +27,7 @@ export default class App {
 		this.app.use(express.urlencoded({ extended: true }));
 		this.app.use(cors());
 		this.app.use(helmet());
+		this.socket = new Socket(3000);
 		dotenv.config();
 	
 	}

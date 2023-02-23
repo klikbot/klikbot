@@ -1,5 +1,5 @@
 import mqtt from "mqtt";
-import { socket } from "./socket";
+import { app } from "../app";
 import deviceService from "../services/deviceService";
 
 class Mqtt {
@@ -124,7 +124,7 @@ class Mqtt {
 
 			case "proiot/infoMessage":
 
-				socket.sendToAll("New info message received from MQTT server to " + messageAsJSON.to + " device: " + messageAsJSON.data);
+				app.socket.sendToAll("New info message received from MQTT server to " + messageAsJSON.to + " device: " + messageAsJSON.data);
 			
 				break;
 

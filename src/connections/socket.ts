@@ -1,6 +1,6 @@
 import http from "http";
-import { connection, server as WebSocketServer } from "websocket";
 import { v4 as uuidv4 } from "uuid";
+import { connection, server as WebSocketServer } from "websocket";
 
 export default class Socket {
 
@@ -80,5 +80,3 @@ export default class Socket {
 	
 
 }
-
-export const socket = new Socket(3000);

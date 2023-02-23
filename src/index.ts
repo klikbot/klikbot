@@ -1,10 +1,23 @@
 import { app } from "./app";
-import HttpServer from "./connections/httpServer";
 import Mqtt from "./connections/mqqt";
+import HttpServer from "./connections/httpServer";
 
-new HttpServer(app.app, 3001);
+class Setup {
 
-const mqttBroker = process.env.MQTT_BROKER || "mqtt://localhost:1883";
+	constructor() {
 
-new Mqtt(mqttBroker, true);
+		this.init();
+	
+	}
 
+	init() {
+
+		new HttpServer(app.app, 3001);
+
+		new Mqtt(process.env.MQTT_BROKER || "mqtt://localhost:1883", true);
+	
+	}
+
+}
+
+export default new Setup();

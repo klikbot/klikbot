@@ -24,7 +24,7 @@ class Mqtt {
 
 		this.client.on("connect", () => {
 
-			console.log("Connected to MQTT server.");
+			console.log("MQTT server connected successfully.");
 
 			this.client.subscribe("proiot/create");
 			this.client.subscribe("proiot/update");

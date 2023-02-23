@@ -2,10 +2,10 @@ import http from "http";
 import { connection, server as WebSocketServer } from "websocket";
 import { v4 as uuidv4 } from "uuid";
 
-class Socket {
+export default class Socket {
 
-	private socketHttpServer: http.Server;
-	private ws : WebSocketServer;
+	public socketHttpServer: http.Server;
+	public ws : WebSocketServer;
 	public connections : connection[] = [];
 
 	constructor(port : number) {
@@ -81,4 +81,4 @@ class Socket {
 
 }
 
-export default Socket;
+export const socket = new Socket(3000);

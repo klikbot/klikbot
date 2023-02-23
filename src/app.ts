@@ -5,7 +5,7 @@ import Database from "./database";
 import express, { Application } from "express";
 import deviceRoutes from "./routes/deviceRoutes";
 
-class App {
+export default class App {
 
 	public app : Application;
 	public database : Database;
@@ -43,4 +43,4 @@ class App {
 
 }
 
-export default App;
+export const app = new App();

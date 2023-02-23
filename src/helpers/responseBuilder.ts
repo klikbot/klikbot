@@ -21,7 +21,7 @@ export const responseBuilder = (res: Response, type : "error" | "success", const
 			}
 		});
 	case "success":
-		return res.status(201).json({
+		return res.status(constant.status).json({
 			status: constant.status,
 			success: {
 				code: constant.code,

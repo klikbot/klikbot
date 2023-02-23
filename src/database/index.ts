@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 class Database {
 
+	public connection : mongoose.Connection;
+
 	constructor() {
 
 		this.config();
@@ -15,20 +17,24 @@ class Database {
 	
 	}
 
-	private connect() : void {
+	private async connect() : Promise<void> {
 
-		mongoose.connect(`mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_NAME}?authSource=admin`)
-			.then(() => {
+		try {
 
-				console.log("Database connected successfully.");
+			const moongoosee = await mongoose.connect(`mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_NAME}?authSource=admin`);
+		
+			this.connection = moongoosee.connection;
+
+			console.log("Database connected successfully.");
+
+		} catch(error) {
+
+			console.log("Unable to connect to the database:");
+			console.log(error);
+		
+		}
+
 			
-			})
-			.catch((error) => {
-
-				console.log("Unable to connect to the database:");
-				console.log(error);
-			
-			});
 	
 	}
 

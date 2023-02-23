@@ -1,5 +1,5 @@
 import mqtt from "mqtt";
-import { socket } from "..";
+import { socket } from "./socket";
 import deviceService from "../services/deviceService";
 
 class Mqtt {
@@ -45,7 +45,7 @@ class Mqtt {
 	
 	private setActionsOnMessage() : void {
 
-		this.client.on("message", (topic, message) => {
+		this.client.on("message", async (topic, message) => {
 
 			const messageAsString = message.toString();
 
@@ -62,52 +62,65 @@ class Mqtt {
 
 			switch(topic) {
 
-			case "proiot/create":
+			case "proiot/create": {
 
-				deviceService.create(messageAsJSON.device)
-					.then((device) => {
-						
-						if(this.logs) console.log(device);
+				try {
 
-					}).catch((error) => {
+					const device = await deviceService.create(messageAsJSON.device);
 
-						console.log(error); 
+					if(this.logs) console.log(device);
 
-					});
+				} catch(error) {
+
+					console.log(error); 
+
+				}
+
+				break;
+			
+			}
+
+					
+
+
+			case "proiot/update": {
+
+				try {
+					
+					const device = await deviceService.update(messageAsJSON.device._id, messageAsJSON.device);
+
+					if(this.logs) console.log(device);
+
+				} catch(error) {
+					
+					console.log(error); 
+
+				}
 
 				break;
 
-			case "proiot/update":
+			}
+				
 
-				deviceService.update(messageAsJSON.device._id, messageAsJSON.device)
-					.then((device) => {
+			case "proiot/delete": {
+				
+				try {
+					
+					const device = await deviceService.delete(messageAsJSON.device._id);
 
-						if(this.logs) console.log(device);
-						
-					})
-					.catch((error) => {
+					if(this.logs) console.log(device);
 
-						console.log(error); 
+				} catch(error) {	
 
-					});
+					console.log(error); 
 
-				break;
-
-			case "proiot/delete":
-
-				deviceService.delete(messageAsJSON.device._id)
-					.then((device) => {
-							
-						if(this.logs) console.log(device);
-						
-					})
-					.catch((error) => {
-							
-						console.log(error); 
-
-					});
+				}
 
 				break;
+			
+			}
+
+				
 
 			case "proiot/infoMessage":
 

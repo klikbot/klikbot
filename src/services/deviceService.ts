@@ -1,4 +1,4 @@
-import { socket } from "..";
+import { socket } from "../connections/socket";
 import Device, { IDevice } from "../database/schemas/deviceSchema";
 
 class DeviceService {

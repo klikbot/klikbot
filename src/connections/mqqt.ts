@@ -12,6 +12,7 @@ class Mqtt {
 		this.logs = logs;
 		this.connect(mqttBroker);
 		this.config();
+		this.setActionsOnMessage();
 
 	}
 
@@ -39,6 +40,10 @@ class Mqtt {
 			console.log(error);
 
 		});
+	
+	}
+	
+	private setActionsOnMessage() : void {
 
 		this.client.on("message", (topic, message) => {
 

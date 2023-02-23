@@ -1,5 +1,5 @@
 import App from "./app";
-import HttpServer from "./httpServer";
+import HttpServer from "./connections/httpServer";
 
 const { app } = new App();
-const httpServer = new HttpServer(app, 3001);
+new HttpServer(app, 3001);

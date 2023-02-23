@@ -1,4 +1,4 @@
-import { {app} } from "./app";
+import { app } from "./app";
 import HttpServer from "./connections/httpServer";
 import Mqtt from "./connections/mqqt";
 

@@ -24,7 +24,7 @@ class Mqtt {
 
 	private config() : void {
 
-		this.client.on("connect", () => {
+		this.client.on("connect", async () => {
 
 			console.log("MQTT server connected successfully.");
 

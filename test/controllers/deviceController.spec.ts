@@ -5,6 +5,7 @@ import DeviceService from "../../src/services/deviceService";
 import { IDevice } from "../../src/database/schemas/deviceSchema";
 import { error } from "../../src/constants/en/error";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const device : any = {
 	name: "Device 1",
 	data: [

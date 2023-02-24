@@ -21,7 +21,19 @@ class Database {
 
 		try {
 
-			const moongoosee = await mongoose.connect(`mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_NAME}?authSource=admin`);
+			let mongodbURI : string;
+
+			if(process.env.APP_ENVIRONMENT === "development") {
+
+				mongodbURI = `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@localhost:${process.env.MONGODB_PORT}/${process.env.MONGODB_NAME}?authSource=admin`;
+
+			} else {
+
+				mongodbURI = `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_NAME}?authSource=admin`;
+
+			}
+			
+			const moongoosee = await mongoose.connect(mongodbURI);
 		
 			this.connection = moongoosee.connection;
 

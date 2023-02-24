@@ -1,5 +1,9 @@
 include .env
 
+.PHONY: development
+development:
+	docker-compose up -d db
+
 .PHONY: up
 
 up:

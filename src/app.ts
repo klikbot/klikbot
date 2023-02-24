@@ -5,6 +5,7 @@ import Database from "./database";
 import express, { Application } from "express";
 import deviceRoutes from "./routes/deviceRoutes";
 import Socket from "./connections/socket";
+import infoRoutes from "./routes/infoRoutes";
 
 export default class App {
 
@@ -39,6 +40,8 @@ export default class App {
 	}
 
 	private routes() : void {
+
+		this.app.use("/api/", infoRoutes);
 
 		this.app.use("/api/devices", deviceRoutes);
 	

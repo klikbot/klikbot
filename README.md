@@ -115,6 +115,8 @@ docker-compose up -d
 
 Esses comandos irão construir a imagem da aplicação e subir os containers do MongoDB e da aplicação. A partir desse momento, a aplicação estará disponível na porta configurada em `APP_PORT` do host.
 
+Para evitar possíveis erros, garanta que a variável `APP_ENVIRONMENT` dentro de `.env` tenha o seu valor igual a `production`.
+
 Para verificar se os contêineres subiram corretamente, execute o comando:
 
 `make logs`

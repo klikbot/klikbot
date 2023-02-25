@@ -131,6 +131,6 @@ Para executar os testes da aplicação, basta primeiro configurar o ambiente de 
 
 ## Links e arquivos úteis
 
-- [Postman] Coleção de requisições.
-- [MondoDB] JSON do banco de dados populado.
+- [Postman - Coleção de requisições.](https://github.com/eliasbiondo/proiot/blob/main/Proiot.postman_collection.json)
+- [MongoDB - JSON do banco de dados populado.](https://github.com/eliasbiondo/proiot/blob/main/devicesCollection.json)
 

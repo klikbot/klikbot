@@ -1,30 +1,36 @@
 import { Request, Response } from "express";
 import twilioService from "../service/twilio.service";
+import userService from "../service/user.service";
+import { twilioMessagesTemplates } from "../constants/pt/twilioTemplate";
 
 class TwilioController {
-    
     async webhook(req: Request, res: Response){
         const messageSid = req.body.MessageSid;
         const body = req.body.Body;
         const from = req.body.From;
         const to = req.body.To;
 
-        console.log(`Mensagem recebida: ${body} de ${from}`);
+        const user = await userService.getByCellphone(from);
 
-        // Faça algo com a mensagem recebida, como responder com outra mensagem
+        if (user == null){
+            const chat = await twilioService.getByCellphone(from);
 
-        // const messageOpts: Twilio.messages.CreateMessageOptions = {
-        //     from: to,
-        //     to: from,
-        //     body: `Você disse: ${body}`
-        // };
+            if (chat == null){
+                const newChat = await twilioService.createChatTempData(from, "register");
+                
+                twilioService.sendMessage(twilioMessagesTemplates.register[0]);
 
-        // client.messages
-        //     .create(messageOpts)
-        //     .then(message => console.log(`Mensagem enviada: ${message.sid}`))
-        //     .catch(error => console.error(`Erro ao enviar mensagem: ${error}`));
-
-        res.sendStatus(200);
+                await twilioService.updateChatTempDate(from, "register", newChat.actualIndex);
+            }
+            else {
+                console.log("Chat gerado");
+                twilioService.sendMessage(twilioMessagesTemplates.register[chat.actualIndex]);
+                await twilioService.updateChatTempDate(from, "register", chat.actualIndex);
+            }
+        }
+        else {
+            // Intruce chat gpt here
+        }
     }
 
 }

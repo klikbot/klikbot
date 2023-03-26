@@ -9,6 +9,7 @@ import Database from "./database/config";
 import product from "./routes/product";
 import client from "./routes/client";
 import twilio from "./routes/twilio";
+import ngrok from "ngrok";
 
 export default class App {
 
@@ -31,6 +32,7 @@ export default class App {
 		this.app.use(cors());
 		this.app.use(helmet());
 		dotenv.config();
+		this.upNgrok();
 	
 	}
 
@@ -49,6 +51,11 @@ export default class App {
 		this.app.use("/api/user", client);
 		this.app.use("/api/webhook", twilio);
 	
+	}
+
+	private async upNgrok() {
+		const ng = await ngrok.connect(3001);
+		console.log(ng);
 	}
 
 }

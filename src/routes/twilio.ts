@@ -6,8 +6,6 @@ const { webhook } = twilioController;
 const router = express.Router();
 
 // POST /api/webhook
-router.post("/", function(req, res) {
-    console.log("Recebido");
-});
+router.post("/", webhook);
 
 export default router;

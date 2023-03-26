@@ -8,8 +8,7 @@ import sale from "./routes/sale"
 import Database from "./database/config";
 import product from "./routes/product";
 import client from "./routes/client";
-
-
+import twilio from "./routes/twilio";
 
 export default class App {
 
@@ -48,6 +47,7 @@ export default class App {
 		this.app.use("/api/user", sale);
 		this.app.use("/api/user", product);
 		this.app.use("/api/user", client);
+		this.app.use("/api/webhook", twilio);
 	
 	}
 

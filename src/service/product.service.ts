@@ -52,6 +52,29 @@ class ProductService {
 	
 	}
 
+	public async getTotalRevenueFromProduct(req: Request, res: Response) {
+
+	}
+
+	public async getAllProductsFromUser(userCellphone: string){
+
+		try {
+			
+			return await Product.find({ userCellphone });
+
+		} catch(error) {
+			return error;
+		}
+	}
+
+	public async getTopSellingProducts(req: Request, res: Response) {
+
+	}
+
+	public async getLeastSoldProducts(req: Request, res: Response) {
+
+	}
+
 	public async update(productId: string, product: IProduct): Promise<IProduct | null> {
 
 		try {

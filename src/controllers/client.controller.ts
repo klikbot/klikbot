@@ -123,6 +123,76 @@ class ClientController {
 
 	}
 
+	public async newClients(req: Request, res: Response) {
+		const days: number = parseInt(req.params.days);
+
+		try {
+
+			const newClients = await clientService.getNewClients(days);
+
+			return responseBuilder(res, "success", success.clientFoundSuccessfully, newClients);
+		
+		} catch (err) {
+
+			console.error(err);
+
+			return responseBuilder(res, "error", error.unableToGetClient);
+		
+		}
+
+	}
+
+	public async inactiveClients(req: Request, res: Response) {
+		const days: number = parseInt(req.params.days);
+
+		try {
+
+			const inactiveClients = await clientService.getInactiveClients(days);
+
+			return responseBuilder(res, "success", success.clientFoundSuccessfully, inactiveClients);
+		
+		} catch (err) {
+
+			console.error(err);
+
+			return responseBuilder(res, "error", error.unableToGetClient);
+		
+		}
+
+	}
+
+	public async volume(req: Request, res: Response) {
+		try {
+			const top: number = parseInt(req.params.top);
+			const inactiveClients = await clientService.getVolume(top);
+
+			return responseBuilder(res, "success", success.clientFoundSuccessfully, inactiveClients);
+		
+		} catch (err) {
+
+			console.error(err);
+
+			return responseBuilder(res, "error", error.unableToGetClient);
+		
+		}
+
+	}
+
+	public async getAveragePrice(req: Request, res: Response) {
+		const days: number = parseInt(req.params.days);
+		try {
+			const averagePrice = await clientService.getAverageSalePrice(days);
+			return responseBuilder(res, "success", success.clientFoundSuccessfully, averagePrice);
+		
+		} catch (err) {
+			console.error(err);
+
+			return responseBuilder(res, "error", error.unableToGetClient);
+		
+		}
+
+	}
+
 }
 
 export default new ClientController();

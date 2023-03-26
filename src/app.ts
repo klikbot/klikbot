@@ -1,17 +1,15 @@
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
-import Database from "./database";
 import express, { Application } from "express";
-import deviceRoutes from "./routes/deviceRoutes";
-import Socket from "./connections/socket";
-import infoRoutes from "./routes/infoRoutes";
+import api from "./routes/api";
+import Database from "./database/config";
+
 
 export default class App {
 
 	public app : Application;
-	public database : Database;
-	public socket : Socket;
+	public database!: Database;
 
 	constructor() {
 
@@ -28,7 +26,6 @@ export default class App {
 		this.app.use(express.urlencoded({ extended: true }));
 		this.app.use(cors());
 		this.app.use(helmet());
-		this.socket = new Socket(3000);
 		dotenv.config();
 	
 	}
@@ -41,9 +38,7 @@ export default class App {
 
 	private routes() : void {
 
-		this.app.use("/api/", infoRoutes);
-
-		this.app.use("/api/devices", deviceRoutes);
+		this.app.use("/api/", api);
 	
 	}
 

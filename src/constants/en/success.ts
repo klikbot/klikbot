@@ -58,7 +58,7 @@ export const success = {
 		code: 1009,
 		title: "Sale deleted successfully.",
 		description: "The sale was deleted successfully."
-  },
+	},
 	productCreatedSuccessfully: {
 		status: 200,
 		code: 1010,
@@ -88,6 +88,7 @@ export const success = {
 		code: 1014,
 		title: "Product deleted successfully.",
 		description: "The product was deleted successfully."
+	},
 	clientCreatedSuccessfully: {
 		status: 200,
 		code: 1015,

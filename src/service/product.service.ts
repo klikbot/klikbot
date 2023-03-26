@@ -1,11 +1,18 @@
 import Product from "../database/schemas/product.schema";
 import { IProduct } from "../interfaces/IProduct";
+import AutoincrementService from "./autoincrement.service";
 
 class ProductService {
 
 	public async create(product: IProduct): Promise<IProduct> {
 
 		try {
+
+			const autoincrement = await AutoincrementService.getByCollectionName("products");
+
+			await AutoincrementService.update("products", autoincrement);
+			
+			product.id = autoincrement.id;
 
 			return await Product.create(product);
 		

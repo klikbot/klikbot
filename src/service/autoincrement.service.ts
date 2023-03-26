@@ -35,7 +35,7 @@ class AutoincrementService {
 
 		try {
 
-			autoincrement.id++;
+			autoincrement.id ++;
 
 			return await Autoincrement.findOneAndUpdate({collectionName}, autoincrement, { new: true });
 		

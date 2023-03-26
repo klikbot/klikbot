@@ -45,7 +45,7 @@ class Database {
 
 	private initCollections() : void {
 		
-		const collections = ["users"];
+		const collections = ["users", "sales", "products", "clients"];
 		
 		collections.forEach(async (collectionName) => {
 

@@ -15,16 +15,16 @@ router.get("/:cellphone/product/:productId", getProduct);
 router.get("/:cellphone/product/", getAllProducts);
 
 //GET /api/user/:cellphone/product/getTotalRevenueFromProduct
-router.get("/:cellphone/product/getTotalRevenueFromProducts", getTotalRevenueFromProduct)
+router.get("/:cellphone/product/getTotalRevenueFromProducts", getTotalRevenueFromProducts);
 
 // GET /api/user/:cellphone/product/getAllProductsFromUser
 router.get("/:cellphone/product/getAllProductsFromUser", getAllProductsFromUser);
 
 // GET /api/:cellphone/product/getTopSellingProducts
-router.get("/:cellphone/product/getTopSellingProducts", getTopSellingProduct)
+router.get("/:cellphone/product/getTopSellingProducts", getTopSellingProduct);
 
 // GET /api/:cellphone/product/getLeastSoldProducts
-router.get("/:cellphone/product/getLeastSoldProducts", getLeastSoldProduct)
+router.get("/:cellphone/product/getLeastSoldProducts", getLeastSoldProduct);
 
 // PUT /api/product/:productId
 router.put("/:cellphone/product/:productId", updateProduct);

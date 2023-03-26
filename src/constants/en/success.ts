@@ -34,5 +34,29 @@ export const success = {
 		code: 1005,
 		title: "User deleted successfully.",
 		description: "The user was deleted successfully."
+	},
+	clientCreatedSuccessfully: {
+		status: 200,
+		code: 1006,
+		title: "Client created successfully.",
+		description: "The client was created successfully."
+	},
+	clientFoundSuccessfully: {
+		status: 200,
+		code: 1007,
+		title: "Client found successfully.",
+		description: "The client was found successfully."
+	},
+	clientUpdatedSuccessfully: {
+		status: 200,
+		code: 1008,
+		title: "Client updated successfully.",
+		description: "The client was updated successfully."
+	},
+	clientDeletedSuccessfully: {
+		status: 200,
+		code: 1009,
+		title: "Client deleted successfully.",
+		description: "The client was deleted successfully."
 	}
 };

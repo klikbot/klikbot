@@ -1,6 +1,7 @@
 import Sale from "../database/schemas/sale.schema";
 import { ISale } from "../interfaces/ISale";
 import autoincrementService from "./autoincrement.service";
+import User from "../database/schemas/user.schema";
 
 class SaleService {
 
@@ -67,7 +68,42 @@ class SaleService {
 		}
 	
 	}
-            
+
+	async getAverageSalePrice(days: number): Promise<number> {
+        try {
+            const startDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+            const sales = await Sale.find( {date: { $lte: startDate }} );
+            const totalSalePrice = sales.reduce((sum, sale) => sum + sale.price, 0);
+            const averageSalePrice = sales.length > 0 ? parseFloat((totalSalePrice / sales.length).toFixed(2)) : 0;
+            return averageSalePrice;
+        } catch (error) {
+            throw new Error(`Failed to get average sale price. Error: ${error}`);
+        }
+    }
+
+	async getAllSales(period: number): Promise<number> {
+		try {
+			let startDate;
+			
+			if (period === 0 || period === 7 || period === 30 || period === 365) {
+				startDate = new Date(Date.now() - period * 24 * 60 * 60 * 1000);
+			}
+			
+			let totalProducts = 0;
+			const users = await User.find();
+			for (const user of users) {
+                const sales = await Sale.find({ userCellphone: user.cellphone, date: { $gte: startDate } });
+			
+				for (const sale of sales) {
+					totalProducts += sale.products.length;
+				}
+              }
+			
+			return totalProducts;
+		} catch (error) {
+			throw new Error(`Failed to get total sale price. Error: ${error}`);
+		}
+	}
 }
   
 export default new SaleService();

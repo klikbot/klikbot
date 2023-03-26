@@ -1,7 +1,7 @@
 import express from "express";
 import clientController from "../controllers/client.controller";
 
-const { createClient, getClient, getAllClients, updateClient, deleteClient, newClients, inactiveClients, volume, getAveragePrice } = clientController;
+const { createClient, getClient, getAllClients, updateClient, deleteClient, newClients, inactiveClients, volume, getBestSalePrice } = clientController;
 
 const router = express.Router();
 
@@ -16,6 +16,6 @@ router.delete("/:cellphone/client/:id", deleteClient);
 router.get("/:cellphone/client/newClients/:days", newClients);
 router.get("/:cellphone/client/inactiveClients/:days", inactiveClients);
 router.get("/:cellphone/client/volume/:top", volume);
-router.get("/:cellphone/client/averagePrice/:days", getAveragePrice);
+router.get("/:cellphone/client/bestPrice/:top/:days", getBestSalePrice);
 
 export default router;

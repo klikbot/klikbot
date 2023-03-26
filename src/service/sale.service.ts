@@ -40,6 +40,18 @@ class SaleService {
 	
 	}
 
+	async getAllByProductId(products: string) {
+		try {
+
+			return await Sale.find({ products });
+		
+		} catch (error) {
+
+			throw new Error(`Failed to get products. Error: ${error}`);
+		
+		}
+	}
+  
 	async update(id: number, sale: ISale): Promise<ISale | null> {
 
 		try {

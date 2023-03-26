@@ -1,11 +1,20 @@
 import Sale from "../database/schemas/sale.schema";
 import { ISale } from "../interfaces/ISale";
+import autoincrementService from "./autoincrement.service";
 
 class SaleService {
 
 	async create(sale: ISale): Promise<ISale> {
 
+		sale.date = new Date();
+
 		try {
+
+			const autoincrement = await autoincrementService.getByCollectionName("sales");
+
+			await autoincrementService.update("sales", autoincrement);
+			
+			sale.id = autoincrement.id;
 
 			return await Sale.create(sale);
 		
@@ -22,20 +31,6 @@ class SaleService {
 		try {
 
 			return await Sale.find({ userCellphone: cellphone });
-		
-		} catch (error) {
-
-			throw new Error(`Failed to get user. Error: ${error}`);
-		
-		}
-	
-	}
-
-	async getAll(): Promise<ISale[]> {
-
-		try {
-
-			return await Sale.find();
 		
 		} catch (error) {
 

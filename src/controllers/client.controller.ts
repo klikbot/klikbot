@@ -6,46 +6,55 @@ import { error } from "../constants/en/error";
 import clientService from "../service/client.service";
 
 class ClientController {
-    public async createClient(req: Request, res: Response) {
-        const requestBody = req.body.client;
-        const client : IClient = {
-			id: requestBody.id,
-			name: requestBody.name,
-			userCellphone: requestBody.userCellphone,
-			dateCreated: new Date(Date.now())
-		};
 
-        try {
-            const newClient = await clientService.create(client);
-            return responseBuilder(res, "success", success.clientCreatedSuccessfully, newClient);
-        } catch (err) {
+	public async createClient(req: Request, res: Response) {
+
+		const client : IClient = req.body.client;
+
+		client.dateCreated = new Date(Date.now());
+
+		try {
+
+			const newClient = await clientService.create(client);
+			return responseBuilder(res, "success", success.clientCreatedSuccessfully, newClient);
+		
+		} catch (err) {
 
 			console.error(err);
 
 			return responseBuilder(res, "error", error.unableToCreateClient);
 		
 		}
-    }
+	
+	}
 
-    public async getClient(req: Request, res: Response) {
-        const id : number = parseInt(req.params.id);
-        try {
-            const client = await clientService.getById(id);
-            if (!client) {
-                return responseBuilder(res, "error", error.clientNotFound);
-            }
-            return responseBuilder(res, "success", success.clientFoundSuccessfully, client);
-        } catch (err) {
+	public async getClient(req: Request, res: Response) {
+
+		const id : number = parseInt(req.params.id);
+		try {
+
+			const client = await clientService.getById(id);
+			if (!client) {
+
+				return responseBuilder(res, "error", error.clientNotFound);
+			
+			}
+			return responseBuilder(res, "success", success.clientFoundSuccessfully, client);
+		
+		} catch (err) {
 
 			console.error(err);
 
 			return responseBuilder(res, "error", error.unableToGetClient);
 		
 		}
-    }
+	
+	}
 
-    public async getAllClients(req: Request, res: Response) {
+	public async getAllClients(req: Request, res: Response) {
+
 		try {
+
 			const clients = await clientService.getAll();
 
 			return responseBuilder(res, "success", success.clientFoundSuccessfully, clients);

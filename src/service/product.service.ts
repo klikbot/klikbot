@@ -28,7 +28,7 @@ class ProductService {
 
 		try {
 
-			return await Product.findById(productId);
+			return await Product.findOne({ id: productId});
 		
 		} catch (error) {
 
@@ -56,7 +56,7 @@ class ProductService {
 
 		try {
 
-			return await Product.findByIdAndUpdate(productId, product, { new: true });
+			return await Product.findOneAndUpdate({ id: productId }, product, { new: true });
 		
 		} catch (error) {
 
@@ -70,25 +70,11 @@ class ProductService {
 
 		try {
 
-			return await Product.findByIdAndDelete(productId);
+			return await Product.findOneAndDelete({ id: productId });
 		
 		} catch (error) {
 
 			throw new Error(`Failed to delete product. Error: ${error}`);
-		
-		}
-	
-	}
-
-	public async searchByName(name: string): Promise<IProduct[]> {
-
-		try {
-
-			return await Product.find({ name: { $regex: new RegExp(name, "i") } });
-		
-		} catch (error) {
-
-			throw new Error(`Failed to search products by name. Error: ${error}`);
 		
 		}
 	

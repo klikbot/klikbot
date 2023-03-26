@@ -9,15 +9,7 @@ class SaleController {
 
 	public async createSale(req: Request, res: Response) {
 
-		const requestBody = req.body.sale;
-		const sale : ISale = {
-			id: 0,
-			date: new Date(Date.now()),
-			price: requestBody.price,
-			clientId: requestBody.clientId,
-			userCellphone: requestBody.userCellphone,
-			products: requestBody.products
-		}
+		const sale : ISale = req.body.sale;
 
 		try {
 
@@ -62,8 +54,9 @@ class SaleController {
     
 	}
 
-	 public async updateSale(req: Request, res: Response) {
-		const sale : ISale = req.body.sale
+	public async updateSale(req: Request, res: Response) {
+
+		const sale : ISale = req.body.sale;
 		const cellphone : string = req.body.cellphone;
 		const id : number = sale.id;
 
@@ -88,9 +81,10 @@ class SaleController {
 		}
 		
         
-	 }
+	}
 
-	 public async deleteSale(req: Request, res: Response) {
+	public async deleteSale(req: Request, res: Response) {
+
 		const cellphone : string = req.body.cellphone;
 		const id : number = req.body.id;
 		

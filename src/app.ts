@@ -3,6 +3,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import express, { Application } from "express";
 import api from "./routes/api";
+import user from "./routes/user";
 import Database from "./database/config";
 
 
@@ -39,6 +40,7 @@ export default class App {
 	private routes() : void {
 
 		this.app.use("/api/", api);
+		this.app.use("/api/user", user);
 	
 	}
 

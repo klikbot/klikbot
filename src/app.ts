@@ -5,7 +5,9 @@ import express, { Application } from "express";
 import api from "./routes/api";
 import user from "./routes/user";
 import Database from "./database/config";
+import product from "./routes/product";
 import client from "./routes/client";
+
 
 
 export default class App {
@@ -42,6 +44,7 @@ export default class App {
 
 		this.app.use("/api/", api);
 		this.app.use("/api/user", user);
+		this.app.use("/api/user", product);
 		this.app.use("/api/user", client);
 	
 	}

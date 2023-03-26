@@ -1,6 +1,5 @@
 import { Application } from "express";
 import http from "http";
-import twilioService from "./service/twilio.service";
 
 class HttpServer {
 

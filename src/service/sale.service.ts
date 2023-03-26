@@ -40,11 +40,11 @@ class SaleService {
 	
 	}
 
-	async update(cellphone: string, id: number, sale: ISale): Promise<ISale | null> {
+	async update(id: number, sale: ISale): Promise<ISale | null> {
 
 		try {
 
-			return await Sale.findOneAndUpdate({cellphone, id}, sale, { new: true });
+			return await Sale.findOneAndUpdate({id}, sale, { new: true });
 		
 		} catch (error) {
 
@@ -54,11 +54,11 @@ class SaleService {
 	
 	}
 
-	async delete(cellphone: string, id: number): Promise<ISale | null> {
+	async delete(id: number): Promise<ISale | null> {
             
 		try {
     
-			return await Sale.findOneAndDelete({cellphone, id});
+			return await Sale.findOneAndDelete({id});
             
 		} catch (error) {
     

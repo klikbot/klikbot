@@ -34,7 +34,8 @@ class AutoincrementService {
 	async update(collectionName: string, autoincrement: IAutoincrement): Promise<IAutoincrement> {
 
 		try {
-            autoincrement.id ++;
+
+			autoincrement.id++;
 
 			return await Autoincrement.findOneAndUpdate({collectionName}, autoincrement, { new: true });
 		

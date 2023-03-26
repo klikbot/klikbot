@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import autoincrementService from "../service/autoincrement.service";
 
 class Database {
 
@@ -39,6 +40,8 @@ class Database {
 
 			console.log("Database connected successfully.");
 
+			this.initCollections();
+
 		} catch(error) {
 
 			console.log("Unable to connect to the database:");
@@ -48,6 +51,24 @@ class Database {
 
 			
 	
+	}
+
+	private initCollections() : void {
+		
+		const collections = ["users"];
+		
+		collections.forEach(async (collectionName) => {
+
+			const collection = await autoincrementService.getByCollectionName(collectionName);
+
+			if (!collection) {
+
+				await autoincrementService.create({ collectionName, id: 0 });
+			
+			}
+
+		});
+
 	}
 
 }

@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import express, { Application } from "express";
 import api from "./routes/api";
 import user from "./routes/user";
-import sale from "./routes/sale"
+import sale from "./routes/sale";
 import Database from "./database/config";
 import product from "./routes/product";
 import client from "./routes/client";

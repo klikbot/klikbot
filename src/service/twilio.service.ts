@@ -27,6 +27,7 @@ class TwilioService {
 
             const chat: IChat = {
                 userCellphone: userCellphone,
+                name: "Template",
                 type: type,
                 actualIndex: 0
             }
@@ -35,7 +36,7 @@ class TwilioService {
 		
 		} catch (error) {
 
-			throw new Error(`Failed to create user. Error: ${error}`);
+			return error;
 		
 		}
     }
@@ -48,18 +49,19 @@ class TwilioService {
 		
 		} catch (error) {
 
-			throw new Error(`Failed to get user. Error: ${error}`);
+			return error;
 		
 		}
 	
 	}
 
-    async updateChatTempDate(userCellphone: string, type: string, actualIndex: number): Promise<IChat | null> {
+    async updateChatTempDate(userCellphone: string, type: string, actualIndex: number, name: string): Promise<IChat | null> {
 
 		try {
 
             const chat: IChat = {
                 userCellphone: userCellphone,
+                name: name,
                 type: type,
                 actualIndex: actualIndex + 1
             }
@@ -68,8 +70,22 @@ class TwilioService {
 		
 		} catch (error) {
 
-			throw new Error(`Failed to update user. Error: ${error}`);
+			return error;
 		
+		}
+	
+	}
+
+    async delete(cellphone: string): Promise<IChat | null> {
+            
+		try {
+    
+			return await Chat.findOneAndDelete({cellphone});
+            
+		} catch (error) {
+    
+			throw new Error(`Failed to delete user. Error: ${error}`);
+            
 		}
 	
 	}

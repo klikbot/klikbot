@@ -178,19 +178,20 @@ class ClientController {
 
 	}
 
-	public async getAveragePrice(req: Request, res: Response) {
+	public async getBestSalePrice(req: Request, res: Response) {
+		const top: number = parseInt(req.params.top);
 		const days: number = parseInt(req.params.days);
 		try {
-			const averagePrice = await clientService.getAverageSalePrice(days);
-			return responseBuilder(res, "success", success.clientFoundSuccessfully, averagePrice);
+			const bestSalePrice = await clientService.getBestSalePrice(top, days);
+			return responseBuilder(res, "success", success.clientFoundSuccessfully, bestSalePrice);
 		
 		} catch (err) {
+
 			console.error(err);
 
 			return responseBuilder(res, "error", error.unableToGetClient);
 		
 		}
-
 	}
 
 }

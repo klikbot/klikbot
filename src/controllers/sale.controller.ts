@@ -108,6 +108,40 @@ class SaleController {
 
 	}
 
+	public async getAveragePrice(req: Request, res: Response) {
+		const days: number = parseInt(req.params.days);
+		try {
+			const averagePrice = await saleService.getAverageSalePrice(days);
+			return responseBuilder(res, "success", success.clientFoundSuccessfully, averagePrice);
+		
+		} catch (err) {
+			console.error(err);
+
+			return responseBuilder(res, "error", error.unableToGetClient);
+		
+		}
+
+	}
+
+	public async getAllSales(req: Request, res: Response) {
+		const cellphone: string = req.params.cellphone;
+		const period: number = parseInt(req.params.period);
+		try {
+
+			const sales = await saleService.getAllSales(period);
+
+			return responseBuilder(res, "success", success.saleFoundSuccessfully, sales);
+		
+		} catch (err) {
+
+			console.error(err);
+
+			return responseBuilder(res, "error", error.unableToGetSale);
+		
+		}
+	
+	}
+
 }
 
 export default new SaleController();

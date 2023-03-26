@@ -119,7 +119,6 @@ class ClientService {
             const clients = await Client.find();
             const clientsVolume = [];
             for (const client of clients) {
-                console.log(client);
                 const sales = await Sale.find({ clientId: client.id });
                 const totalSalePrice = sales.reduce((sum, sale) => sum + sale.price, 0);
                 clientsVolume.push({ client, totalSalePrice });
@@ -134,16 +133,24 @@ class ClientService {
         }
     }
 
-    async getAverageSalePrice(days: number): Promise<number> {
+    async getBestSalePrice(top: number, days: number): Promise<IClient[]> {
         try {
+            const clients = await Client.find();
+            const clientsVolume = [];
             const startDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
-            const sales = await Sale.find( {date: { $lte: startDate }} );
-            console.log(sales);
-            const totalSalePrice = sales.reduce((sum, sale) => sum + sale.price, 0);
-            const averageSalePrice = sales.length > 0 ? parseFloat((totalSalePrice / sales.length).toFixed(2)) : 0;
-            return averageSalePrice;
+            for (const client of clients) {
+                const sales = await Sale.find({ clientId: client.id, date: { $lte: startDate }});
+                const totalSalePrice = sales.reduce((sum, sale) => sum + sale.price, 0);
+                const averageSalePrice = sales.length > 0 ? parseFloat((totalSalePrice / sales.length).toFixed(2)) : 0;
+                clientsVolume.push({ client, averageSalePrice });
+              }
+          
+              const sortedClients = clientsVolume.sort((a, b) => b.averageSalePrice - a.averageSalePrice);
+              const topClients = sortedClients.slice(0, top).map((item) => item.client);
+          
+              return topClients;
         } catch (error) {
-            throw new Error(`Failed to get average sale price. Error: ${error}`);
+            throw new Error(`Failed to get best sale price. Error: ${error}`);
         }
     }
 }

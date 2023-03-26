@@ -57,12 +57,11 @@ class SaleController {
 	public async updateSale(req: Request, res: Response) {
 
 		const sale : ISale = req.body.sale;
-		const cellphone : string = req.body.cellphone;
-		const id : number = sale.id;
+		const id : number = parseInt(req.params.id);
 
 		try {
 
-			const updatedUser = await saleService.update(cellphone, id, sale);
+			const updatedUser = await saleService.update(id, sale);
 
 			if (!updatedUser) {
 
@@ -85,12 +84,11 @@ class SaleController {
 
 	public async deleteSale(req: Request, res: Response) {
 
-		const cellphone : string = req.body.cellphone;
-		const id : number = req.body.id;
+		const id : number = parseInt(req.params.id);
 		
 		try {
 
-			const deletedUser = await saleService.delete(cellphone, id);
+			const deletedUser = await saleService.delete(id);
 
 			if (!deletedUser) {
 

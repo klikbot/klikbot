@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import express, { Application } from "express";
 import api from "./routes/api";
 import user from "./routes/user";
+import sale from "./routes/sale"
 import Database from "./database/config";
 
 
@@ -41,6 +42,7 @@ export default class App {
 
 		this.app.use("/api/", api);
 		this.app.use("/api/user", user);
+		this.app.use("/api/user", sale);
 	
 	}
 

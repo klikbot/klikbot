@@ -46,5 +46,22 @@ export const error = {
 		code: 1508,
 		title: "Unable to delete product.",
 		description: "The product was unable to be deleted."
+	unableToCreateClient: {
+		status: 500,
+		code: 1509,
+		title: "Unable to create client.",
+		description: "The client was unable to be created."
+	},
+	clientNotFound: {
+		status: 404,
+		code: 1510,
+		title: "Client not found.",
+		description: "The client was not found."
+	},
+	unableToGetClient: {
+		status: 500,
+		code: 1511,
+		title: "Unable to get client.",
+		description: "The client was unable to be got."
 	}
 };

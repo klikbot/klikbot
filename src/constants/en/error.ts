@@ -64,6 +64,7 @@ export const error = {
 		code: 1511,
 		title: "Unable to delete product.",
 		description: "The product was unable to be deleted."
+	},
 	unableToCreateClient: {
 		status: 500,
 		code: 1512,
